@@ -1,0 +1,45 @@
+.cards__element-like{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 21px;
+    height: 19px;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    filter: brightness(1%);
+    /* border: 2px, solid, red; */
+}
+
+.cards__element-like:hover{
+    filter: brightness(100%);
+    cursor: pointer;
+}
+
+@media screen and (max-width: 320px) {
+    .cards__element-like{
+        width: 16px;
+        height: 14px;
+    }
+}
+
+.cards__element-like-counter{
+    color: black;
+    display: flex;
+    font-weight: bold;
+    font-size: 13px;
+    bottom: -9px;
+    right: 0px;
+    position: absolute;
+    width: 24px;
+    align-items: center;
+    justify-content: center;
+    /* border: 2px, solid, red; */
+}
+
+@media screen and (max-width: 768px) {
+    .cards__element-like-counter{
+        font-size: 11px;
+    }
+}

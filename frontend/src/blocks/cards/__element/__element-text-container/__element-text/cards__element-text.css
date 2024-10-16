@@ -1,0 +1,27 @@
+.cards__element-text{
+    color: black;
+    max-width: 87.8%;
+    height: 23px;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    align-self: center;
+    margin-top: 9.8%;
+    position: relative;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    padding-bottom: 6px;
+}
+
+@media screen and (max-width: 768px) {
+    .cards__element-text{
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .cards__element-text{
+        font-size: 14px;
+    }
+}

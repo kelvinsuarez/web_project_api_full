@@ -1,0 +1,24 @@
+.profile__elipce{
+    border-radius: 50%;
+    justify-content: center;
+    display: flex;
+    overflow: hidden;
+    width: 120px;
+    align-items: center;
+    height: 120px;
+    position: relative;
+}
+
+@media screen and (max-width: 768px) {
+    .profile__elipce{
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .profile__elipce{
+        width: 75px;
+        height: 75px;
+    }
+}

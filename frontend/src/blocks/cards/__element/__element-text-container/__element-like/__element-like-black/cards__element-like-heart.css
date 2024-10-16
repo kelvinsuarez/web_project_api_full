@@ -1,0 +1,61 @@
+@keyframes colorTransition {
+    0% {
+        background-color: gray;
+    }
+    100% {
+        background-color: black;
+    }
+}
+
+.cards__element-like-parts{
+    background-color: black;
+    animation: colorTransition 1.5s linear alternate;
+}
+
+.cards__element-like-right-rectangle{
+    background-color: black;
+    width: 25%;
+    height: 63.16%;
+    position: absolute;
+    transform: rotate(44deg);
+    right: 23%;
+    bottom: 5%;
+}
+.cards__element-like-left-rectangle{
+    background-color: black;
+    width: 25%;
+    height: 63.16%;
+    position: absolute;
+    transform: rotate(-44deg);
+    left: 25.238%;
+    bottom: 1.5%;
+}
+.cards__element-like-right-circle{
+    border-radius: 100%;
+    background-color: black;
+    width: 55%;
+    height: 60%;
+    position: absolute;
+    transform: rotate(-45deg);
+    right: 0.904%;
+    top: 0%;
+}
+.cards__element-like-left-circle{
+    border-radius: 100%;
+    background-color: black;
+    width: 55%;
+    height: 60%;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: 0.47%;
+    top: 0.526%;
+}
+.cards__element-like-center-circle{
+    border-radius: 100%;
+    background-color: black;
+    width: 45%;
+    height: 50%;
+    position: absolute;
+    transform: rotate(-45deg);
+    bottom: 27.619%;
+}

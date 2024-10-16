@@ -1,0 +1,36 @@
+.profile__edit-button-square{
+    border: 1px solid white;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 0px;
+    top: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.profile__edit-button-square_grey{
+    z-index: 1;
+   
+}
+
+.profile__edit-button-square:hover{
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .profile__edit-button-square{
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .profile__edit-button-square{
+        width: 11px;
+        height: 11px;
+        top: 4px;
+    }
+}

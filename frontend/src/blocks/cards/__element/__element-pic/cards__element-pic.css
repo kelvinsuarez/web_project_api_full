@@ -1,0 +1,21 @@
+.cards__element-pic{
+    margin-top: 0px;
+    height: 283px;
+}
+
+.cards__element-pic:hover{
+    cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+    .cards__element-pic{
+        width: 259px;
+        height: 259px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .cards__element-pic{
+        width: 220px;
+        height: 220px;
+    }
+}

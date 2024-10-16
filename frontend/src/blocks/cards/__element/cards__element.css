@@ -1,0 +1,21 @@
+.cards__element{
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 361px;
+}
+
+@media screen and (max-width: 768px) {
+    .cards__element{
+        height: 330px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .cards__element{
+        height: 280px;
+    }
+}

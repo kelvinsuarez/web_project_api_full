@@ -1,0 +1,28 @@
+.popup-confirmation__button-delete{
+    background-color: black;
+    color: rgba(255, 255, 255, 0.747);
+    width: 83%;
+    height: 28%;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    margin-bottom: 4%;
+    border-radius: 3px;
+}
+
+.popup-confirmation__button-delete:hover{
+    background: rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+}
+
+.popup-confirmation__button-delete.popup__button-save-off{
+    background-color: white;
+    color:gray;
+}
+
+@media screen and (max-width: 768px) {
+    .popup-confirmation__button-delete{
+        font-size: 12px;
+    }
+}

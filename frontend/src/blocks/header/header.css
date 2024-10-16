@@ -1,0 +1,25 @@
+.header{
+    margin-top: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 69%;
+    height: 74px;
+}
+
+.header__nav{
+    margin-left: auto;
+}
+.header__nav:hover{
+    color: #787878;
+    cursor: pointer;
+}
+
+
+
+@media screen and (max-width: 320px) {
+    .header{
+        width: 75%;
+        height: 46px;
+    }
+}

@@ -1,0 +1,21 @@
+.popup-place__text{
+    margin-top: 8%;
+    color: black;
+    width: 76.5%;
+    height: 7%;
+    margin-right: 32px;
+    font-size: 24px;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .popup-place__text{
+        font-size: 15px;
+    }
+  }
+  
+  @media screen and (max-width: 320px) {
+    .popup-place__text{
+        font-size: 13px;
+        margin-right: 12px;
+    }
+  }

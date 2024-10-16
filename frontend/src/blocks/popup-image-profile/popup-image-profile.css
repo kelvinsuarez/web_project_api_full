@@ -1,0 +1,18 @@
+.popup-image-profile{
+    display: flex;
+    min-width: 100%;
+    min-height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    z-index: 1;
+    transition: all .7s ease;
+  }
+  
+  .popup-image-profile_opened{
+    visibility: hidden;
+    opacity: 0;
+  }

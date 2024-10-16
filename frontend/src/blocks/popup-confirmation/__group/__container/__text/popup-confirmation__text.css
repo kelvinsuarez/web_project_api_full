@@ -1,0 +1,22 @@
+.popup-confirmation__text{
+    margin-top: 5%;
+    color: black;
+    width: 76.5%;
+    height: 7%;
+    margin-right: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+    .popup-confirmation__text{
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .popup-confirmation__text{
+        font-size: 13px;
+        margin-right: 12px;
+    }
+}

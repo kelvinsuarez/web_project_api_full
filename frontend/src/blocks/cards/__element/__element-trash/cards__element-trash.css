@@ -1,0 +1,23 @@
+.cards__element-trash{
+    position: absolute;
+    margin-top: 18px;
+    right: 15px;
+    width: 18px;
+    height: 19.3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cards__element-trash:hover{
+    filter: brightness(60%) grayscale(100%);
+    cursor: pointer;
+}
+
+@media screen and (max-width: 320px) {
+    .cards__element-trash{
+        width: 14px;
+        height: 15.3px;
+    }
+}

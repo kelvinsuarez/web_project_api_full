@@ -1,0 +1,66 @@
+@font-face {
+    font-family: "Inter";
+    src: url(../../font/Inter-Regular.otf) format("opentype");
+}
+
+
+.root{
+    background-color: black;
+    min-width: 1280px;
+    margin: auto;
+    font-family: "Inter";
+    color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+@media screen and (max-width: 768px) {
+    .root{
+      min-width: 768px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .root{
+      min-width: 320px;
+    }
+}
+
+
+/*.profile__into,
+.header,
+.header__logo,
+.profile__edit-button,
+
+
+.profile,
+.profile__avatar,
+.profile__elipce,
+
+.profile__title,
+.profile__subtitle,
+
+.cards,
+.cards__element,
+.cards__element-trash,
+.cards__element-pic,
+.cards__element-text,
+.cards__element-text-container,
+
+
+.footer,
+
+.popup__container,
+.popup__group,
+.popup__text,
+
+.popup__button-save,
+.popup__icon-close,
+.root,
+.main
+{
+    border: 1px solid red
+  }*/

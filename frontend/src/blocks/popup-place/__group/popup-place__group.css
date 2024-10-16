@@ -1,0 +1,27 @@
+.popup-place__group{
+    position: relative;
+    position: fixed;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    top: 148px;
+    width: 36.4%;
+    height: 370px;
+    margin-left: 56px;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .popup-place__group{
+        height: 230px;
+        top: 100px;
+    }
+  }
+  
+  @media screen and (max-width: 320px) {
+    .popup-place__group{
+        height: 200px;
+        width: 60%;
+        margin-left: 23px;
+    }
+  }

@@ -1,0 +1,27 @@
+.image-zoom__text {
+    display: flex;
+    width: 60%;
+    margin-top: 55%;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 20px 20px 20px 20px;
+    font-size: 25px;
+    font-family: Arial, sans-serif;
+    font-weight: lighter;
+    z-index: 1;
+}
+
+@media screen and (max-width: 768px) {
+    .image-zoom__text{
+        font-size: 18px;
+        margin-top: 90%;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .image-zoom__text{
+        font-size: 10px;
+        margin-top: 230%;
+        width: 30%;
+    }
+}

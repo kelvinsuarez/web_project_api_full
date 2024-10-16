@@ -1,0 +1,16 @@
+.cards__element-text-container{
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    width: 87.7%;
+    height: 6.8%;
+    align-self: center;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+@media screen and (max-width: 320px) {
+    .cards__element-text-container{
+        margin-top: 18px;
+    }
+}

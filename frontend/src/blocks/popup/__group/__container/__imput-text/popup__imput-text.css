@@ -1,0 +1,45 @@
+.popup-profile__imput-text{
+    border: none;
+    width: 83%;
+    height: 7%;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    border-bottom: 1px solid #000000;
+    opacity: 0.75;
+    outline: none;
+}
+
+.form__input-text_type_error{
+    border-bottom: 1px solid #f50606;
+}
+
+.form-input-show-error{
+    color: #fc0000;
+    align-items: flex-start;
+    position: relative;
+    width: 83%;
+    font-size: 12px;
+    opacity: 0.75;
+    top: -20px;
+}
+
+@media screen and (max-width: 768px) {
+    .popup-profile__imput-text{
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .form__input-text_type_error{
+        font-size: 8px;
+        margin-top: -18px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .form-input-show-error{
+        font-size: 8px;
+        top: -10px;
+    }
+}
