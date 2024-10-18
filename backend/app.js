@@ -1,20 +1,15 @@
 const express = require('express');
+require('dotenv').config();
 const mongoose = require('mongoose');
 const {PORT = 3000} = process.env;
 const app = express();
 const {HttpStatus, HttpResponseMessage,} = require("./enums/http");
 
+console.log(process.env.NODE_ENV); // producción
 
 mongoose.connect('mongodb://localhost:27017/aroundb', {});
 
 app.use(express.json());
-
-app.use((req, res, next) => {
-  req.user = {
-    _id: '66bcee520149c1190744fd04'
-  }
-  next();
-})
 
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
