@@ -21,13 +21,21 @@ module.exports.createCard = (req, res) => {
 };
 
 module.exports.deleteCard = (req, res) => {
-  Cards.findByIdAndDelete(req.params.cardId)
+  const userId = req.user._id;
+  Cards.findById(req.params.cardId)
   .orFail(() => {
     const error = new Error(HttpResponseMessage.NOT_FOUND);
     error.statusCode = HttpStatus.NOT_FOUND;
     throw error;
   })
-  .then(card => res.send({message: 'Tarjeta eliminada'}))
+  .then(card => {
+    if (card.owner.toString() !== userId) {
+      return res.status(HttpStatus.FORBIDDEN).send({ message: HttpResponseMessage.FORBIDDEN});
+    }
+
+    return Cards.findByIdAndDelete(req.params.cardId)
+      .then(() => res.send({message: 'Tarjeta eliminada'}));
+  })
   .catch(err =>  {
     if (err.statusCode === HttpStatus.NOT_FOUND){
       res.status(HttpStatus.NOT_FOUND).send({message: HttpResponseMessage.NOT_FOUND});

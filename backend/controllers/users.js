@@ -66,7 +66,7 @@ module.exports.updateUserAvatar = (req, res) => {
   const {avatar} = req.body;
   const userId = req.user._id;
 
-  User.findOneAndUpdate(
+  User.findByIdAndUpdate(
     userId, {avatar}, {new: true, runValidators: true}
   )
   .orFail(() => {
@@ -87,7 +87,7 @@ module.exports.updateUserAvatar = (req, res) => {
 module.exports.login = (req, res) => {
   const {email, password} = req.body;
 
-  User.findOne({email})
+  User.findOne({email}).select('+password')
     .then(user => {
       if (!user) {
         return res.status(HttpStatus.UNAUTHORIZED).send({ message: HttpResponseMessage.UNAUTHORIZED});
