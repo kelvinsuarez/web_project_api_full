@@ -40,10 +40,11 @@ function Login ({handleLogin}) {
         auth.authorize(sanitizedEmail, sanitizedPassword)
         .then((data) => {
             if (data.token) {
+                localStorage.setItem('jwt', data.token);
+                handleLogin(data.token);
                 console.log('Token JWT desde el componente Login:', data.token);
                 setEmail('');
                 setPassword('');
-                handleLogin()
                 navigate('/profile')
             }
         })

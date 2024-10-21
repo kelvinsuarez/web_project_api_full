@@ -19,6 +19,7 @@ import * as auth from '../utils/auth.js'
 
 function App() {
   const navigate = useNavigate();
+  const [token, setToken] = React.useState(localStorage.getItem('jwt') || '');
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(true);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(true);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(true);
@@ -30,22 +31,36 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-              const userData = await api.getUserInfoFronServer();
-              setCurrentUser(userData)
+  useEffect(() => {
+    const HandleTokenCheck = () => {
+      const jwt = localStorage.getItem('jwt');
+      if(jwt) {
+        auth.checkToken(jwt).then((res) => {
+          if (res) {
+            setToken(jwt);
+            setIsLoggedIn(true);
+            navigate('/profile');
+          }
+        });
+      }
+    };
 
-              const cardInfo = await api.getCards();
-              setCards(cardInfo)
+    HandleTokenCheck();
+    
+    const fetchData = async () => {
+      try {
+        const userData = await api.getUserInfoFronServer();
+        setCurrentUser(userData.data)
+
+        const cardInfo = await api.getCards();
+        setCards(cardInfo.data)
               
-            } catch (error) {
+      } catch (error) {
                 console.error("Error fetching user data:", error);
-            }
-        };
-        fetchData();
-        HandleTokenCheck();
-    }, []);
+      }
+    };
+    fetchData();
+  }, [token]);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(false);
@@ -130,21 +145,11 @@ function App() {
     }
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = (token) => {
+    setToken(token);
+    localStorage.setItem('jwt', token);
     setIsLoggedIn(true)
-  }
-
-  const HandleTokenCheck = () => {
-    const jwt = localStorage.getItem('jwt');
-    if(jwt) {
-      auth.checkToken(jwt).then((res) => {
-        if (res) {
-          setIsLoggedIn(true)
-          navigate('/profile')
-        }
-      })
-    }
-  }
+  };
 
   return (
     <CurrentUserContext.Provider value ={currentUser}>

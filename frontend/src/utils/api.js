@@ -8,13 +8,18 @@ class Api{
     }
 
     async _useFetch(url, method, body){
+        const headers = {
+           "content-type": "application/json"
+        };
+
+        if (this._authorization){
+            headers['Authorization'] = `Bearer ${this._authorization}`;
+        }
+        
         const res = await fetch(url, {
-            headers: {
-                authorization: this._authorization,
-                "content-type": "application/json"
-            },
             method,
-            body: JSON.stringify(body)
+            headers,
+            body: body ? JSON.stringify(body) : undefined,
         });
 
         if (res.ok){
@@ -138,7 +143,7 @@ class Api{
 const api = new Api({
     address: 'https://around.nomoreparties.co',
     groupId: `web_es_11`,
-    token: `ddd525c3-4e22-45dd-b59e-e1d482e580b4`
+    token: localStorage.getItem('jwt') || '',
 });
 
 export default api
