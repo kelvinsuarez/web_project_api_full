@@ -2,16 +2,15 @@ const User = require('../models/user');
 const {HttpStatus, HttpResponseMessage,} = require("../enums/http");
 const bcrypt =require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-module.exports.getUsers = (req, res) => {
+module.exports.getUsers = (req, res, next) => {
   User.find({})
   .then(user => res.send({data: user}))
-  .catch(err => res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({message: HttpResponseMessage.SERVER_ERROR}))
+  .catch(next);
 }
 
-module.exports.getUserById = (req, res) => {
+module.exports.getUserById = (req, res, next) => {
   User.findById(req.params.id)
   .orFail(() => {
     const error = new Error(HttpResponseMessage.NOT_FOUND);
@@ -19,28 +18,24 @@ module.exports.getUserById = (req, res) => {
     throw error;
   })
   .then(user => res.send({data: user}))
-  .catch(err => {
-    if(err.statusCode === HttpStatus.NOT_FOUND){
-      res.status(HttpStatus.NOT_FOUND).send({message: HttpResponseMessage.NOT_FOUND})
-    } else {
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({message: HttpResponseMessage.SERVER_ERROR})
-    }
-  });
+  .catch(next);
 };
 
-module.exports.createUser = (req, res) => {
+module.exports.createUser = (req, res, next) => {
   const {name, about, avatar, email, password} = req.body;
   User.create({name, about, avatar, email, password})
     .then(user => res.status(HttpStatus.CREATED).send({data: user}))
     .catch(err => {
       if (err.name === 'ValidationError') {
-        res.status(HttpStatus.BAD_REQUEST).send ({message: HttpResponseMessage.BAD_REQUEST});
-      } else {res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({message: HttpResponseMessage.SERVER_ERROR});
+        err.status = HttpStatus.BAD_REQUEST;
+        next(err);
+      } else {
+        next(err);
       }
     });
 };
 
-module.exports.updateUserProfile = (req, res) => {
+module.exports.updateUserProfile = (req, res, next) => {
   const { name, about} = req.body;
   const userId = req.user._id;
 
@@ -53,16 +48,10 @@ module.exports.updateUserProfile = (req, res) => {
     throw error;
   })
   .then(user => res.send({data: user}))
-  .catch(err => {
-    if(err.statusCode === HttpStatus.NOT_FOUND){
-      res.status(HttpStatus.NOT_FOUND).send({message: HttpResponseMessage.NOT_FOUND})
-    } else {
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({message: HttpResponseMessage.SERVER_ERROR})
-    }
-  });
+  .catch(next);
 };
 
-module.exports.updateUserAvatar = (req, res) => {
+module.exports.updateUserAvatar = (req, res, next) => {
   const {avatar} = req.body;
   const userId = req.user._id;
 
@@ -75,39 +64,37 @@ module.exports.updateUserAvatar = (req, res) => {
     throw error;
   })
   .then(user => res.send({data: user}))
-  .catch(err => {
-    if(err.statusCode === HttpStatus.NOT_FOUND){
-      res.status(HttpStatus.NOT_FOUND).send({message: HttpResponseMessage.NOT_FOUND})
-    } else {
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({message: HttpResponseMessage.SERVER_ERROR})
-    }
-  });
+  .catch(next);
 };
 
-module.exports.login = (req, res) => {
+module.exports.login = (req, res, next) => {
   const {email, password} = req.body;
 
   User.findOne({email}).select('+password')
     .then(user => {
       if (!user) {
-        return res.status(HttpStatus.UNAUTHORIZED).send({ message: HttpResponseMessage.UNAUTHORIZED});
+        const error = new Error(HttpResponseMessage.UNAUTHORIZED);
+        error.statusCode = HttpStatus.UNAUTHORIZED;
+        throw error;
       }
 
       bcrypt.compare(password, user.password, (err, isMatch) => {
         if (err) {
-          return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({message: HttpResponseMessage.SERVER_ERROR});
+          return next(err);
         }
         if (!isMatch) {
-          return res.status(HttpStatus.UNAUTHORIZED).send({message: HttpResponseMessage.UNAUTHORIZED});
+          const error = new Error(HttpResponseMessage.UNAUTHORIZED);
+          error.statusCode = HttpStatus.UNAUTHORIZED;
+          throw error;
         }
         const token = jwt.sign({ _id: user._id}, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', {expiresIn: '7d'});
         res.send({token});
       });
     })
-    .catch(err => res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({message: HttpResponseMessage.SERVER_ERROR}));
+    .catch(next);
 }
 
-module.exports.getCurrentUser = (req, res) => {
+module.exports.getCurrentUser = (req, res, next) => {
   const userId = req.user._id;
 
   User.findById(userId)
@@ -117,11 +104,5 @@ module.exports.getCurrentUser = (req, res) => {
       throw error;
     })
     .then(user => res.send({ data: user }))
-    .catch(err => {
-      if (err.statusCode === HttpResponseMessage.NOT_FOUND) {
-        res.status(HttpStatus.NOT_FOUND).send({ message: HttpResponseMessage.NOT_FOUND});
-      } else {
-        res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ message: HttpResponseMessage.SERVER_ERROR });
-      }
-    });
-}
+    .catch(next);
+};

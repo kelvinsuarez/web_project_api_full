@@ -1,26 +1,28 @@
 const Cards = require('../models/card');
 const {HttpStatus, HttpResponseMessage,} = require("../enums/http");
 
-module.exports.getCards = (req, res) => {
+module.exports.getCards = (req, res, next) => {
   Cards.find({})
   .populate(['owner'])
   .then(cards => res.send({data: cards}))
-  .catch(err => res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({message: HttpResponseMessage.SERVER_ERROR}))
+  .catch(next);
 };
 
-module.exports.createCard = (req, res) => {
+module.exports.createCard = (req, res, next) => {
   const {name, link} = req.body;
   Cards.create({name, link, owner: req.user._id})
     .then(card => res.status(HttpStatus.CREATED).send({data: card}))
     .catch(err => {
       if (err.name === 'ValidationError') {
-        res.status(HttpStatus.CREATED).send ({message: HttpResponseMessage.BAD_REQUEST});
-      } else {res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({message: HttpResponseMessage.SERVER_ERROR});
+        err.statusCode = HttpStatus.BAD_REQUEST;
+        next(err);
+      } else {
+        next(err);
       }
     });
 };
 
-module.exports.deleteCard = (req, res) => {
+module.exports.deleteCard = (req, res, next) => {
   const userId = req.user._id;
   Cards.findById(req.params.cardId)
   .orFail(() => {
@@ -30,22 +32,18 @@ module.exports.deleteCard = (req, res) => {
   })
   .then(card => {
     if (card.owner.toString() !== userId) {
-      return res.status(HttpStatus.FORBIDDEN).send({ message: HttpResponseMessage.FORBIDDEN});
+      const error = new Error(HttpResponseMessage.FORBIDDEN);
+      error.statusCode = HttpStatus.FORBIDDEN;
+      throw error;
     }
 
     return Cards.findByIdAndDelete(req.params.cardId)
       .then(() => res.send({message: 'Tarjeta eliminada'}));
   })
-  .catch(err =>  {
-    if (err.statusCode === HttpStatus.NOT_FOUND){
-      res.status(HttpStatus.NOT_FOUND).send({message: HttpResponseMessage.NOT_FOUND});
-    } else {
-      res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({message: HttpResponseMessage.SERVER_ERROR});
-    }
-  });
+  .catch(next);
 };
 
-module.exports.likeCard = (req, res) => {
+module.exports.likeCard = (req, res, next) => {
   Cards.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: {likes: req.user._id}},
@@ -57,14 +55,10 @@ module.exports.likeCard = (req, res) => {
     throw error;
   })
   .then(card => res.send(card))
-  .catch((err) =>
-      res
-    .status(HttpStatus.NOT_FOUND)
-    .send({message: HttpResponseMessage.NOT_FOUND})
-  );
+  .catch(next);
 }
 
-module.exports.dislikeCard = (req, res) => {
+module.exports.dislikeCard = (req, res, next) => {
   Cards.findByIdAndUpdate(
     req.params.cardId,
     {$pull: {likes: req.user._id}},
@@ -76,9 +70,5 @@ module.exports.dislikeCard = (req, res) => {
     throw error;
   })
   .then(card => res.send(card))
-  .catch((err) =>
-      res
-    .status(HttpStatus.NOT_FOUND)
-    .send({message: HttpResponseMessage.NOT_FOUND})
-  );
-}
+  .catch(next);
+};
