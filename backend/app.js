@@ -7,6 +7,8 @@ const  errorHandler = require('./middlewares/errorHandler');
 const {HttpStatus, HttpResponseMessage,} = require("./enums/http");
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+
 
 mongoose.connect('mongodb://localhost:27017/aroundb', {});
 
@@ -16,8 +18,15 @@ console.log(process.env.NODE_ENV); // producción
 
 app.use(express.json());
 
+//registrador de solicitudes
+app.use(requestLogger);
+
+//controladores de rutas
 app.use('/users', usersRouter);
 app.use('/cards', cardsRouter);
+
+//resgistrador de errores
+app.use(errorLogger);
 
 app.use((req, res) => {
   res.status(HttpStatus.NOT_FOUND).json({message: HttpResponseMessage.NOT_FOUND})
