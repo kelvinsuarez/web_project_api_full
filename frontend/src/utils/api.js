@@ -141,9 +141,9 @@ class Api{
 }
 
 const api = new Api({
-    address: 'https://around.nomoreparties.co',
+    address: 'https://api.p18.ignorelist.com',
     groupId: `web_es_11`,
-    token: localStorage.getItem('jwt') || '',
+    token: localStorage.getItem('jwt') || process.env.TOKEN || '',
 });
 
 export default api
