@@ -1,6 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 const mongoose = require('mongoose');
+const cors = require('cors');
 const {errors} = require('celebrate');
 const {PORT = 3000} = process.env;
 const  errorHandler = require('./middlewares/errorHandler');
@@ -15,6 +16,9 @@ mongoose.connect('mongodb://localhost:27017/aroundb', {});
 const app = express();
 
 console.log(process.env.NODE_ENV); // producción
+
+app.use(cors());
+app.options('*',cors());
 
 app.use(express.json());
 
