@@ -1,4 +1,4 @@
-const BASE_URL = "https://tripleten.desarrollointerno.com";
+const BASE_URL = "https://api.p18.ignorelist.com";
 
 export const register = ({email, password}) => {
     return fetch(`${BASE_URL}/signup`, {
