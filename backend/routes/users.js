@@ -1,16 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/auth');
-const {getUsers, getUserById, createUser, updateUserProfile, updateUserAvatar, login, getCurrentUser} = require('../controllers/users');
+const {getUsers, getUserById, updateUserProfile, updateUserAvatar, getCurrentUser} = require('../controllers/users');
 const { celebrate } = require('celebrate');
-const { signupSchema, loginSchema, updateProfileSchema, updateAvatarSchema } = require('../validation/schemas');
+const { updateProfileSchema, updateAvatarSchema } = require('../validation/schemas');
 
 
-//Rutas puclicas
-//Crear usuario
-router.post('/signup', celebrate(signupSchema), createUser);
-//loguearse
-router.post('/login', celebrate(loginSchema), login);
 
 //Middleware de autorizacion
 router.use(auth);

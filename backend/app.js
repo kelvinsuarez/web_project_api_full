@@ -18,7 +18,7 @@ const app = express();
 console.log(process.env.NODE_ENV); // producción
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: 'https://p18.ignorelist.com' }));
 app.options('*',cors());
 app.use(express.json());
 //registrador de solicitudes
