@@ -1,10 +1,9 @@
 import React from 'react';
 
 class Api{
-    constructor({token, address, groupId }){
+    constructor({token, address }){
         this._authorization = token;
         this._address = address;
-        this._groupId = groupId
     }
 
     async _useFetch(url, method, body){
@@ -31,7 +30,7 @@ class Api{
 
     async getUserInfoFronServer() {
         try{
-            const res = await this._useFetch(`${this._address}/v1/${this._groupId}/users/me`,
+            const res = await this._useFetch(`${this._address}/v1/users/me`,
             "GET"
             );
             return res;
@@ -42,7 +41,7 @@ class Api{
 
     async getCards(){
         try{
-            const res = await this._useFetch(`${this._address}/v1/${this._groupId}/cards`,
+            const res = await this._useFetch(`${this._address}/v1/cards`,
             "GET"
             );
             return res;
@@ -54,7 +53,7 @@ class Api{
     async saveDataToServer(name, description) {
         try{
             const res = await this._useFetch(
-                `${this._address}/v1/${this._groupId}/users/me`,
+                `${this._address}/v1/users/me`,
                 "PATCH",
                 {
                     name,
@@ -70,7 +69,7 @@ class Api{
     async addNewCardToServer({name, link}) {
         try {
             const res = await this._useFetch(
-               `${this._address}/v1/${this._groupId}/cards`,
+               `${this._address}/v1/cards`,
                "POST",
                {
                 name: name,
@@ -86,7 +85,7 @@ class Api{
     async showLikeFromCard(cardId) {
         try {
             const res = await this._useFetch(
-                `${this._address}/v1/${this._groupId}/cards/likes/${cardId}`,
+                `${this._address}/v1/cards/likes/${cardId}`,
                 "PUT"
             );
 
@@ -99,7 +98,7 @@ class Api{
     async deleteLikeFromCard(cardId){
         try {
             const res = await this._useFetch(
-                `${this._address}/v1/${this._groupId}/cards/likes/${cardId}`,
+                `${this._address}/v1/cards/likes/${cardId}`,
                 "DELETE"
             );
 
@@ -112,7 +111,7 @@ class Api{
     async deleteCardFromServer(cardId){
         try {
             const res = await this._useFetch(
-                `${this._address}/v1/${this._groupId}/cards/${cardId}`,
+                `${this._address}/v1/cards/${cardId}`,
                 "DELETE"
             );
 
@@ -125,7 +124,7 @@ class Api{
     async updateImageProfile(avatarUrl) {
         try {
             const res = await this._useFetch(
-                `${this._address}/v1/${this._groupId}/users/me/avatar`,
+                `${this._address}/v1/users/me/avatar`,
                 "PATCH",
                 {
                     avatar: avatarUrl,
