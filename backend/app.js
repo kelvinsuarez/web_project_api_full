@@ -9,6 +9,7 @@ const {HttpStatus, HttpResponseMessage,} = require("./enums/http");
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
 const authRouter = require('./routes/auth');
+const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 // conección a MongoDB
@@ -25,8 +26,8 @@ app.use(express.json());
 app.use(requestLogger);
 
 //controladores de rutas
-app.use('/users', usersRouter);
-app.use('/cards', cardsRouter);
+app.use('/users', auth, usersRouter);
+app.use('/cards', auth, cardsRouter);
 app.use('/auth', authRouter);
 
 //resgistrador de errores
