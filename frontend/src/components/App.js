@@ -35,13 +35,17 @@ function App() {
     const HandleTokenCheck = () => {
       const jwt = localStorage.getItem('jwt');
       if(jwt) {
+        console.log('navegando a profile')
+        
         auth.checkToken(jwt).then((res) => {
           if (res) {
             setToken(jwt);
-            setIsLoggedIn(true);
+            setIsLoggedIn(true);          
+            fetchData();            
             navigate('/profile');
           }
         });
+        
       }
     };
 
@@ -49,6 +53,7 @@ function App() {
     
     const fetchData = async () => {
       try {
+        
         const userData = await api.getUserInfoFronServer();
         setCurrentUser(userData.data)
 
@@ -59,7 +64,9 @@ function App() {
                 console.error("Error fetching user data:", error);
       }
     };
-    fetchData();
+    if(token){
+      fetchData();
+    }    
   }, [token]);
 
   const handleEditAvatarClick = () => {
@@ -146,8 +153,8 @@ function App() {
   };
 
   const handleLogin = (token) => {
-    setToken(token);
     localStorage.setItem('jwt', token);
+    setToken(token);    
     setIsLoggedIn(true)
   };
 

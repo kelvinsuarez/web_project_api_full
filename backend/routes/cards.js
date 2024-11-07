@@ -4,8 +4,8 @@ const {getCards, createCard, deleteCard, likeCard, dislikeCard} = require("../co
 const {celebrate} = require('celebrate');
 const { createCardSchema, cardIdSchema } = require('../validation/schemas');
 
-const auth = require('../middlewares/auth');
-router.use(auth);
+//const auth = require('../middlewares/auth');
+//router.use(auth);
 
 // Obtener todas las tarjetas
 router.get('/', getCards);

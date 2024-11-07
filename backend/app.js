@@ -25,10 +25,12 @@ app.use(express.json());
 //registrador de solicitudes
 app.use(requestLogger);
 
+app.use('/auth', authRouter);
+
 //controladores de rutas
 app.use('/users', auth, usersRouter);
 app.use('/cards', auth, cardsRouter);
-app.use('/auth', authRouter);
+
 
 //resgistrador de errores
 app.use(errorLogger);

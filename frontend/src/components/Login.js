@@ -45,7 +45,7 @@ function Login ({handleLogin}) {
                 console.log('Token JWT desde el componente Login:', data.token);
                 setEmail('');
                 setPassword('');
-                navigate('/profile')
+             //   navigate('/profile')
             }
         })
         .catch((err) => {
