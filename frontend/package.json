@@ -19,7 +19,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./build/* k_suarez22@p18.ignorelist.com:/home/k_suarez22/web_project_api_full/frontend"
+    "deploy": "npm run build && scp -r ./build/* k_suarez22@p18.ignorelist.com:/home/k_suarez22/web_project_api_full/frontend/build"
   },
   "eslintConfig": {
     "extends": [

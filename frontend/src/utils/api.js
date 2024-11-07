@@ -1,7 +1,7 @@
 import React from 'react';
 
 class Api{
-    constructor({token, address, groupId }){
+    constructor({ token, address, groupId }){
         this._authorization = token;
         this._address = address;
         this._groupId = groupId
@@ -12,8 +12,9 @@ class Api{
            "content-type": "application/json"
         };
 
-        if (this._authorization){
-            headers['Authorization'] = `Bearer ${this._authorization}`;
+        const token = localStorage.getItem("jwt");
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
         }
         
         const res = await fetch(url, {
@@ -31,7 +32,7 @@ class Api{
 
     async getUserInfoFronServer() {
         try{
-            const res = await this._useFetch(`${this._address}/v1/${this._groupId}/users/me`,
+            const res = await this._useFetch(`${this._address}/users/me`,
             "GET"
             );
             return res;
@@ -42,7 +43,7 @@ class Api{
 
     async getCards(){
         try{
-            const res = await this._useFetch(`${this._address}/v1/${this._groupId}/cards`,
+            const res = await this._useFetch(`${this._address}/cards`,
             "GET"
             );
             return res;
@@ -54,7 +55,7 @@ class Api{
     async saveDataToServer(name, description) {
         try{
             const res = await this._useFetch(
-                `${this._address}/v1/${this._groupId}/users/me`,
+                `${this._address}/users/me`,
                 "PATCH",
                 {
                     name,
@@ -70,7 +71,7 @@ class Api{
     async addNewCardToServer({name, link}) {
         try {
             const res = await this._useFetch(
-               `${this._address}/v1/${this._groupId}/cards`,
+               `${this._address}/cards`,
                "POST",
                {
                 name: name,
@@ -86,7 +87,7 @@ class Api{
     async showLikeFromCard(cardId) {
         try {
             const res = await this._useFetch(
-                `${this._address}/v1/${this._groupId}/cards/likes/${cardId}`,
+                `${this._address}/cards/likes/${cardId}`,
                 "PUT"
             );
 
@@ -99,7 +100,7 @@ class Api{
     async deleteLikeFromCard(cardId){
         try {
             const res = await this._useFetch(
-                `${this._address}/v1/${this._groupId}/cards/likes/${cardId}`,
+                `${this._address}/cards/likes/${cardId}`,
                 "DELETE"
             );
 
@@ -112,7 +113,7 @@ class Api{
     async deleteCardFromServer(cardId){
         try {
             const res = await this._useFetch(
-                `${this._address}/v1/${this._groupId}/cards/${cardId}`,
+                `${this._address}/cards/${cardId}`,
                 "DELETE"
             );
 
@@ -125,7 +126,7 @@ class Api{
     async updateImageProfile(avatarUrl) {
         try {
             const res = await this._useFetch(
-                `${this._address}/v1/${this._groupId}/users/me/avatar`,
+                `${this._address}/users/me/avatar`,
                 "PATCH",
                 {
                     avatar: avatarUrl,
@@ -145,4 +146,4 @@ const api = new Api({
     token: localStorage.getItem('jwt') || process.env.TOKEN || '',
 });
 
-export default api
+export default api;

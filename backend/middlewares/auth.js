@@ -14,11 +14,14 @@ module.exports = (req, res, next) => {
   let payload;
 
   try {
+    //Verificar el token usando el JWT secreto
     payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
   } catch (err) {
     return res.status(HttpStatus.FORBIDDEN).send({ message: HttpResponseMessage.FORBIDDEN });
   }
+  // Añadir el payload del token verificado al objeto de solicitud
   req.user = payload;
+  //Continuar al siguiente middleware
   next();
 };
 

@@ -26,7 +26,7 @@ module.exports.login = (req, res, next) => {
     if (!user) {
       const error = new Error(HttpResponseMessage.UNAUTHORIZED);
       error.statusCode = HttpStatus.UNAUTHORIZED;
-      throw error;
+      return next(error);
     }
     bcrypt.compare(password, user.password, (err, isMatch) => {
       if (err) {
@@ -35,7 +35,7 @@ module.exports.login = (req, res, next) => {
       if (!isMatch) {
         const error = new Error(HttpResponseMessage.UNAUTHORIZED);
         error.statusCode = HttpStatus.UNAUTHORIZED;
-        throw error;
+        return next(error);
       }
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', {expiresIn: '7d'});
       res.send({ token });

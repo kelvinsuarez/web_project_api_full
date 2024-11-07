@@ -45,12 +45,13 @@ function Login ({handleLogin}) {
                 console.log('Token JWT desde el componente Login:', data.token);
                 setEmail('');
                 setPassword('');
-                navigate('/profile')
+                //navigate('/profile')
             }
         })
         .catch((err) => {
             console.log(err);
-            if(err.includes('400')) {
+            const errorMessage = err.toString();
+            if(errorMessage.includes('400')) {
                 setError('No se ha proporcionado uno o más campos')
             } else if(err.includes('No se ha encontrado al usuario')) {
                 setError('No se ha encontrado al usuario con el correo electrónico especificado')
