@@ -4,14 +4,14 @@ const {HttpStatus, HttpResponseMessage,} = require("../enums/http");
 module.exports.getCards = (req, res, next) => {
   Cards.find({})
   .populate(['owner'])
-  .then(cards => res.send({data: cards}))
+  .then(cards => res.send(cards))
   .catch(next);
 };
 
 module.exports.createCard = (req, res, next) => {
   const {name, link} = req.body;
   Cards.create({name, link, owner: req.user._id})
-    .then(card => res.status(HttpStatus.CREATED).send({data: card}))
+    .then(card => res.status(HttpStatus.CREATED).send(card))
     .catch(err => {
       if (err.name === 'ValidationError') {
         err.statusCode = HttpStatus.BAD_REQUEST;

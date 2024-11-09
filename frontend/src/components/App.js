@@ -53,10 +53,10 @@ function App() {
     const fetchData = async () => {
       try {
         const userData = await api.getUserInfoFronServer();
-        setCurrentUser(userData.data)
+        setCurrentUser(userData)
 
         const cardInfo = await api.getCards();
-        setCards(cardInfo.data)
+        setCards(cardInfo)
               
       } catch (error) {
                 console.error("Error fetching user data:", error);
