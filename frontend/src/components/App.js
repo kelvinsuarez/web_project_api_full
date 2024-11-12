@@ -144,7 +144,7 @@ function App() {
     try{
       const addCard = await api.addNewCardToServer(card);
       console.log ('Respuesta del servidor:', addCard);
-      if (addCard && addCard._id) { setCards([addCard.data, ...cards]); closeAllPopups(); } else { console.error("La respuesta no contiene _id."); }
+      if (addCard && addCard._id) { setCards([addCard, ...cards]); closeAllPopups(); } else { console.error("La respuesta no contiene _id."); }
     } catch (err) {
       console.error("Error updating new card:", err);
     }
