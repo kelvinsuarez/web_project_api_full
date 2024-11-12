@@ -62,9 +62,13 @@ class Api{
                     about: description,
                 }
             );
-            return res;
+            if (res && res.data){
+                return res;
+            } else {
+                throw new Error ('La respuesta de la API no contiene los datos esperados');
+            }
         } catch (err) {
-            console.log(err);
+            console.log('Error al actualizar los datos del usuario:',err);
         }
     }
 
