@@ -11,7 +11,9 @@ module.exports.getCards = (req, res, next) => {
 module.exports.createCard = (req, res, next) => {
   const {name, link} = req.body;
   Cards.create({name, link, owner: req.user._id})
-    .then(card => res.status(HttpStatus.CREATED).send(card))
+    .then(card => { console.log('Carta creada:', card);
+      res.status(HttpStatus.CREATED).send(card);
+    })
     .catch(err => {
       if (err.name === 'ValidationError') {
         err.statusCode = HttpStatus.BAD_REQUEST;
