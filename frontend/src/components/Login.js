@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import Logo from '../images/header/Vector.svg';
 import{ NavLink, useNavigate } from 'react-router-dom';
 import InfoTooltip from './InfoTooltip.js';
@@ -101,6 +102,10 @@ function Login ({handleLogin}) {
             />
         </>
     )
+}
+
+Login.propTypes = {
+    handleLogin: PropTypes.func.isRequired
 }
 
 export default Login;

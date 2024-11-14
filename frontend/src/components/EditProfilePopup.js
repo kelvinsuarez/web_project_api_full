@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext, useRef} from "react";
+import PropTypes from "prop-types";
 import PopupWithForm from "./PopupWithForm";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import FormValidator from "../utils/FormValidator";
@@ -43,48 +44,55 @@ function EditProfilePopup (props){
             about: description,
         })
     }
-return(
+    return(
     
-    <PopupWithForm 
-        ref={formRef}
-        isOpen={props.isOpen} 
-        onClose={props.onClose} 
-        name="-profile" 
-        id="popup-profile_container" 
-        title="Editar Perfil"
-        onSubmit={handleSubmit}
-    >
-    <input 
-      type="text" 
-      id="nombre"
-      name="nombre"
-      placeholder="Nombre" 
-      defaultValue={name}
-      minLength="2" 
-      maxLength="40" 
-      className="popup-profile__imput-text popup-profile__imput-text_name form__imput-text"
-      required
-      autoComplete="off"
-      onChange={handleNameChange}
-    />
-    <span className="nombre-error form__input-show-error"></span>
-    <input 
-      type="text" 
-      id="acerca"
-      name="acerca"
-      placeholder="A cerca de mi"
-      defaultValue={description}
-      minLength="2" 
-      maxLength="200"
-      className="popup-profile__imput-text popup-profile__imput-text_job form__imput-text"
-      required
-      autoComplete="off"
-      onChange={handleDescriptionChange}
-    />
-    <span className="acerca-error form__input-show-error"></span>
-    <button className="popup-save popup-profile__button-save popup-profile__button-save:hover" id="button-save" disabled>Guardar</button>
-  </PopupWithForm>
+        <PopupWithForm 
+            ref={formRef}
+            isOpen={props.isOpen} 
+            onClose={props.onClose} 
+            name="-profile" 
+            id="popup-profile_container" 
+            title="Editar Perfil"
+            onSubmit={handleSubmit}
+        >
+            <input 
+                type="text" 
+                id="nombre"
+                name="nombre"
+                placeholder="Nombre" 
+                defaultValue={name}
+                minLength="2" 
+                maxLength="40" 
+                className="popup-profile__imput-text popup-profile__imput-text_name form__imput-text"
+                required
+                autoComplete="off"
+                onChange={handleNameChange}
+            />
+            <span className="nombre-error form__input-show-error"></span>
+            <input 
+                type="text" 
+                id="acerca"
+                name="acerca"
+                placeholder="A cerca de mi"
+                defaultValue={description}
+                minLength="2" 
+                maxLength="200"
+                className="popup-profile__imput-text popup-profile__imput-text_job form__imput-text"
+                required
+                autoComplete="off"
+                onChange={handleDescriptionChange}
+            />
+            <span className="acerca-error form__input-show-error"></span>
+            <button className="popup-save popup-profile__button-save popup-profile__button-save:hover" id="button-save" disabled>Guardar</button>
+        </PopupWithForm>
     
-)
+    );
+}
+
+EditProfilePopup.propTypes = { 
+    isOpen: PropTypes.bool.isRequired, 
+    onClose: PropTypes.func.isRequired, 
+    onUpdateUser: PropTypes.func.isRequired, 
 };
+
 export default EditProfilePopup

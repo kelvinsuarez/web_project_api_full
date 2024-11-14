@@ -1,4 +1,5 @@
 import React, {useEffect, forwardRef} from "react";
+import PropTypes from "prop-types";
 import escapeHTML from "escape-html";
 
 const PopupWithForm = forwardRef((props, ref) => {
@@ -34,5 +35,17 @@ const PopupWithForm = forwardRef((props, ref) => {
         </div>
     );
 });
+
+PopupWithForm.displayName = 'PopupWithForm';
+
+PopupWithForm.propTypes = { 
+    name: PropTypes.string.isRequired, 
+    isOpen: PropTypes.bool.isRequired, 
+    onClose: PropTypes.func.isRequired, 
+    id: PropTypes.string.isRequired, 
+    onSubmit: PropTypes.func.isRequired, 
+    title: PropTypes.string.isRequired, 
+    children: PropTypes.node.isRequired, 
+};
 
 export default PopupWithForm

@@ -1,4 +1,3 @@
-import React from 'react';
 
 class Api{
     constructor({ token, address, groupId }){
@@ -146,7 +145,7 @@ class Api{
 }
 
 const api = new Api({
-    address: 'http://localhost:3000',
+    address: 'https://api.p18.ignorelist.com',
     token: localStorage.getItem('jwt') || process.env.TOKEN || '',
 });
 

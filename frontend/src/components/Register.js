@@ -26,7 +26,7 @@ function Register () {
         };
 
         auth.register(sanitizedValues)
-        .then((res) => {
+        .then(() => {
             navigate('/signin')
         })
         .catch((err) => {

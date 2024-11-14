@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import CurrentUserContext from '../contexts/CurrentUserContext.js';
 import VectorLapiz  from '../images/profile/lapiz.svg';
 import VectorCruz  from '../images/profile/button-add.svg';
@@ -54,5 +55,23 @@ function Main({ onEditProfileClick,
         </>
     )
 }
+
+Main.propTypes = { 
+    onEditProfileClick: PropTypes.func.isRequired, 
+    onAddPlaceClick: PropTypes.func.isRequired, 
+    onEditAvatarClick: PropTypes.func.isRequired, 
+    onCardClick: PropTypes.func.isRequired, 
+    onCardLike: PropTypes.func.isRequired, 
+    cards: PropTypes.arrayOf(PropTypes.shape({ 
+        _id: PropTypes.string.isRequired, 
+        name: PropTypes.string.isRequired, 
+        link: PropTypes.string.isRequired, 
+        likes: PropTypes.array.isRequired, 
+        owner: PropTypes.shape({ 
+            _id: PropTypes.string.isRequired, 
+        }).isRequired, 
+    })).isRequired, 
+    onConfirmationDelete: PropTypes.func.isRequired, 
+};
 
 export default Main;

@@ -1,4 +1,5 @@
 import React, {useEffect} from "react";
+import PropTypes from "prop-types";
 
 function ImagePopup({isOpen, card, onClose}) {
 
@@ -35,4 +36,13 @@ function ImagePopup({isOpen, card, onClose}) {
     )
 }
 
-export default ImagePopup
+ImagePopup.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  card: PropTypes.shape({
+    link: PropTypes.string,
+    name: PropTypes.string
+  }).isRequired,
+  onClose: PropTypes.func.isRequired
+};
+
+export default ImagePopup;

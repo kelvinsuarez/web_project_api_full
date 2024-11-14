@@ -1,4 +1,5 @@
 import React,{useRef, useEffect} from "react";
+import PropTypes from "prop-types";
 import PopupWithForm from "./PopupWithForm";
 import FormValidator from "../utils/FormValidator";
 import escapeHTML from "escape-html";
@@ -63,6 +64,12 @@ function AddPlacePopup (props){
             <button className="popup-save popup-place__button-save popup-place__button-save:hover" disabled>Guardar</button>
         </PopupWithForm>
     )
+};
+
+AddPlacePopup.propTypes = {
+    onAddCard: PropTypes.func.isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
 };
 
 export default AddPlacePopup;

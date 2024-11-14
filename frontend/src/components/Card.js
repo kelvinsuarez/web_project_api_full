@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import trash from '../images/cards/trash-all.svg';
 import likeIcon from '../images/cards/like-grey.svg';
 import CurrentUserContext from '../contexts/CurrentUserContext';
@@ -66,4 +67,20 @@ function Card({ card, onCardLike, onConfirmationDelete, handleCardClick }) {
         </>
     )
 }
+
+Card.propTypes = { 
+    card: PropTypes.shape({ 
+        name: PropTypes.string.isRequired, 
+        link: PropTypes.string.isRequired, 
+        _id: PropTypes.string.isRequired, 
+        likes: PropTypes.array.isRequired, 
+        owner: PropTypes.shape({ 
+            _id: PropTypes.string.isRequired, 
+        }).isRequired, 
+    }).isRequired, 
+    onCardLike: PropTypes.func.isRequired, 
+    onConfirmationDelete: PropTypes.func.isRequired, 
+    handleCardClick: PropTypes.func.isRequired, 
+};
+
 export default Card;
