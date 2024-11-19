@@ -49,11 +49,10 @@ function App() {
     };
 
     HandleTokenCheck();
-    
     const fetchData = async () => {
       try {
         const userData = await api.getUserInfoFronServer();
-        setCurrentUser(userData)
+        setCurrentUser(userData.data ? userData.data : userData);
 
         const cardInfo = await api.getCards();
         setCards(cardInfo)
@@ -123,7 +122,7 @@ function App() {
   const handleUpdateUser = async (userData) => {
     try {
       const updataUser = await api.saveDataToServer(userData.name, userData.about);
-      setCurrentUser(updataUser.data);
+      setCurrentUser(updataUser);
       closeAllPopups();
     } catch (err) {
       console.error("Error updating user data:", err);
