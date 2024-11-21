@@ -5,7 +5,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports = (req, res, next) => {
   //Obtener el token de los encabezados de la solicitud
-  const token = req.headers.authorization?.replace('Bearer ', '');
+  const token = req.headers.authorization ? req. headers.authorization.replace('Bearer ', '') : null;
 
   if (!token) {
     return res.status(HttpStatus.FORBIDDEN).send({ message: HttpResponseMessage.FORBIDDEN });
@@ -22,6 +22,5 @@ module.exports = (req, res, next) => {
   // Añadir el payload del token verificado al objeto de solicitud
   req.user = payload;
   //Continuar al siguiente middleware
-  next();
+  return next();
 };
-

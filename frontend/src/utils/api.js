@@ -141,7 +141,7 @@ class Api{
 }
 
 const api = new Api({
-    address: 'https://api.p18.ignorelist.com',
+    address: 'http://localhost:3000',
     token: localStorage.getItem('jwt') || process.env.TOKEN || '',
 });
 
