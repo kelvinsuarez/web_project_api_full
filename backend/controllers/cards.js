@@ -51,12 +51,13 @@ module.exports.likeCard = (req, res, next) => {
     { $addToSet: {likes: req.user._id}},
     {new: true}
   )
+  .populate(['owner'])
   .orFail(() => {
     const error = new Error(HttpResponseMessage.NOT_FOUND);
     error.statusCode = HttpStatus.NOT_FOUND;
     throw error;
   })
-  .then(card => res.send(card))
+  .then(card => res.send({ data: card }))
   .catch(next);
 }
 
@@ -66,11 +67,12 @@ module.exports.dislikeCard = (req, res, next) => {
     {$pull: {likes: req.user._id}},
     {new: true}
   )
+  .populate(['owner'])
   .orFail(() => {
     const error = new Error(HttpResponseMessage.NOT_FOUND);
     error.statusCode = HttpStatus.NOT_FOUND;
     throw error;
   })
-  .then(card => res.send(card))
+  .then(card => res.send({ data: card }))
   .catch(next);
 };

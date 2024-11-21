@@ -112,7 +112,7 @@ function App() {
     try {
       const newCard = isLiked ? await api.deleteLikeFromCard(cardId) : await api.showLikeFromCard(cardId);
       setCards((cards) =>
-        cards.map((card) => (card._id === cardId ? newCard : card))
+        cards.map((card) => (card._id === cardId ? (newCard.data ? newCard.data : newCard) : card))
       );
     } catch (err) {
       console.log(err);

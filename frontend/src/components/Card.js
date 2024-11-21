@@ -10,7 +10,7 @@ function Card({ card, onCardLike, onConfirmationDelete, handleCardClick }) {
     
     
     const isOwn = owner && currentUser ? owner._id === currentUser._id : false;
-    const isLiked = likes.some((like) => like._id === currentUser._id);
+    const isLiked = likes.some((like) => like === currentUser._id);
 
     const cardDeleteButtonClassName = `cards__element-trash ${isOwn ?'cards__element-trash_visible' : 'cards__element-trash_hidden'}`;
     
