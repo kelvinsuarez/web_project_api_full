@@ -1,4 +1,4 @@
-const Joi = require('celebrate').Joi;
+const { Joi } = require('celebrate');
 const validator = require('validator');
 
 const validateURL = (value, helpers) => {
@@ -6,7 +6,7 @@ const validateURL = (value, helpers) => {
     return value;
   }
   return helpers.error('string.uri');
-}
+};
 
 // Esquemas de validación para users
 const signupSchema = {
@@ -35,7 +35,6 @@ const updateAvatarSchema = {
     avatar: Joi.string().custom(validateURL),
   }),
 };
-
 
 // Esquemas de validación para cards
 const createCardSchema = {

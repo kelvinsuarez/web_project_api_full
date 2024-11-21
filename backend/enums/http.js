@@ -1,4 +1,3 @@
-
 const HttpStatus = Object.freeze({
   OK: 200,
   CREATED: 201,
@@ -6,21 +5,20 @@ const HttpStatus = Object.freeze({
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
   NOT_FOUND: 404,
-  INTERNAL_SERVER_ERROR: 500
+  INTERNAL_SERVER_ERROR: 500,
 });
 
 const HttpResponseMessage = Object.freeze({
-  SUCCESS: "Exito",
-  CREATED: "Recurso creado con éxito",
-  BAD_REQUEST: "Datos invalidos",
-  UNAUTHORIZED: "Acceso no autorizado",
-  FORBIDDEN: "Acceso prohibido",
-  NOT_FOUND: "Recurso nada encontrado",
-  SERVER_ERROR: "Error predeterminado"
+  SUCCESS: 'Exito',
+  CREATED: 'Recurso creado con éxito',
+  BAD_REQUEST: 'Datos invalidos',
+  UNAUTHORIZED: 'Acceso no autorizado',
+  FORBIDDEN: 'Acceso prohibido',
+  NOT_FOUND: 'Recurso nada encontrado',
+  SERVER_ERROR: 'Error predeterminado',
 });
 
 module.exports = {
   HttpStatus,
   HttpResponseMessage,
 };
-

@@ -52,11 +52,14 @@ function Login ({handleLogin}) {
         .catch((err) => {
             console.log(err);
             const errorMessage = err.toString();
+            /*
             if(errorMessage.includes('400')) {
                 setError('No se ha proporcionado uno o más campos')
             } else if(err.includes('No se ha encontrado al usuario')) {
                 setError('No se ha encontrado al usuario con el correo electrónico especificado')
             } else {setError('Ha ocurrido un error. Por favor, inténtalo de nuevo.')};
+             */
+            setError(errorMessage);
             setIsError(true)
             setIstooltipOpen(true)
         });

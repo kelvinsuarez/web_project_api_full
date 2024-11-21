@@ -1,4 +1,5 @@
-const BASE_URL = "https://api.p18.ignorelist.com";
+//const BASE_URL = "https://api.p18.ignorelist.com";
+const BASE_URL = 'http://localhost:3001';
 
 export const register = ({email, password}) => {
     return fetch(`${BASE_URL}/auth/signup`, {
@@ -35,15 +36,10 @@ export const authorize = (email, password) => {
         },
         body: JSON.stringify({email, password})
     })
-    .then((response) => {
+    .then(async (response) => {
         if (!response.ok) {
-            if (response.status === 401) {
-                return Promise.reject('No se ha encontrado al usuario con el correo electrónico especificado');
-            } else if (response.status === 400) {
-                return Promise.reject("Uno de los campos se rellenó de forma incorrecta.")
-            } else {
-                return Promise.reject(`Error: ${response.statusText}`)
-            }
+          const data = await response.json();
+          return Promise.reject(data.messaje)
         }
         return  response.json()
     })
@@ -56,7 +52,7 @@ export const authorize = (email, password) => {
         } else {
             throw new Error('No se recibio ningún token JWT')
         }
-    })
+    })    
     .catch((err) =>{
         return Promise.reject(err);
     })
