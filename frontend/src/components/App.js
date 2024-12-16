@@ -139,9 +139,16 @@ function App() {
     }
   };
 
-  const handleAddCard = async (card) => {
+  const handleAddCard = async (newCard) => {
     try{
-      const addCard = await api.addNewCardToServer(card);
+      const formData = new FormData();
+      formData.append('name', newCard.name); 
+      formData.append('link', newCard.link); 
+      if (newCard.file) { 
+        formData.append('file', newCard.file);
+      }
+
+      const addCard = await api.addNewCardToServer(formData);
       console.log ('Respuesta del servidor:', addCard);
       if (addCard && addCard._id) { setCards([addCard, ...cards]); closeAllPopups(); } else { console.error("La respuesta no contiene _id."); }
     } catch (err) {

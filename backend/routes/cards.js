@@ -6,6 +6,7 @@ const {
   getCards, createCard, deleteCard, likeCard, dislikeCard,
 } = require('../controllers/cards');
 const { createCardSchema, cardIdSchema } = require('../validation/schemas');
+const upload = require('../middlewares/multer');
 
 // const auth = require('../middlewares/auth');
 // router.use(auth);
@@ -13,8 +14,8 @@ const { createCardSchema, cardIdSchema } = require('../validation/schemas');
 // Obtener todas las tarjetas
 router.get('/', getCards);
 
-// Crear targetas
-router.post('/', celebrate(createCardSchema), createCard);
+// Crear tarjetas con subida de archivo
+router.post('/', upload.single('file'), celebrate(createCardSchema), createCard);
 
 // Borrar targetas
 router.delete('/:cardId', celebrate(cardIdSchema), deleteCard);

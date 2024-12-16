@@ -7,6 +7,7 @@ import escapeHTML from "escape-html";
 function AddPlacePopup (props){
     const titleRef = useRef(null);
     const urlRef = useRef(null);
+    const fileRef = useRef(null);
     const formRef =  useRef(null);
 
     useEffect(() => {
@@ -25,6 +26,7 @@ function AddPlacePopup (props){
         const newCard = {
             name: escapeHTML(titleRef.current.value),
             link: escapeHTML(urlRef.current.value),
+            file: fileRef.current.files[0]
         }
         props.onAddCard(newCard);
     };
@@ -49,8 +51,9 @@ function AddPlacePopup (props){
                 ref={titleRef}
             />
             <span className="titulo-error form-input-show-error"></span>
+
             <input 
-                type="url"
+                type="file"
                 id="url"
                 placeholder="Imagen URL"
                 minLength="2" maxLength="200"
@@ -61,6 +64,15 @@ function AddPlacePopup (props){
                 ref={urlRef}
             />
             <span className="url-error form-input-show-error"></span>
+
+            <label htmlFor="file-input" className="file-upload-label">Seleccionar Foto</label>
+            <input 
+                type="file" 
+                id="file-input" 
+                className="popup-place__imput-file form-imput-file" 
+                ref={fileRef} 
+                style={{ display: 'none' }} 
+            />
             <button className="popup-save popup-place__button-save popup-place__button-save:hover" disabled>Guardar</button>
         </PopupWithForm>
     )
