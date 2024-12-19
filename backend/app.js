@@ -3,6 +3,10 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const { errors } = require('celebrate');
+<<<<<<< Updated upstream
+=======
+const multer = require('multer');
+>>>>>>> Stashed changes
 const path = require('path');
 
 const { PORT = 3000 } = process.env;
@@ -14,6 +18,17 @@ const authRouter = require('./routes/auth');
 const auth = require('./middlewares/auth');
 const upload = require('./middlewares/multer');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+
+const storage = multer.diskStorage({
+  destination(req, file, cb) {
+    cb(null, 'uploads/');
+  },
+  filename(req, file, cb) {
+    cb(null, `${file.fieldname} - ${Date.now()} ${path.extname(file.originalname)}`);
+  }
+});
+
+const upload = multer({ storage });
 
 // conección a MongoDB
 mongoose.connect('mongodb://localhost:27017/aroundb', {});
@@ -36,6 +51,15 @@ app.use('/auth', authRouter);
 //controladores de rutas
 app.use('/users', auth, usersRouter);
 app.use('/cards', auth, upload.single('file'), cardsRouter);
+
+//Ruta para manejar la subida del archivo
+app.post('/upload', upload.single('file'), (req, res) => {
+  try {
+    res.send('Archivo subido exitosamente');
+  } catch (err) {
+    res.sendStatus(500);
+  }
+})
 
 //resgistrador de errores
 app.use(errorLogger);

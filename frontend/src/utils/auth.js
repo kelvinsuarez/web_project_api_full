@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = "https://api.p18.ignorelist.com";
 
 export const register = ({email, password}) => {
     return fetch(`${BASE_URL}/auth/signup`, {

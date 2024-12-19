@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Logo from '../images/header/Vector.svg';
+import Logo from '../images/header/logo_around_RD_v2.png';
 import{ NavLink, useNavigate } from 'react-router-dom';
 import InfoTooltip from './InfoTooltip.js';
 import * as auth from '../utils/auth.js';

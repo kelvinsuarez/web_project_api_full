@@ -26,7 +26,7 @@ function AddPlacePopup (props){
         const newCard = {
             name: escapeHTML(titleRef.current.value),
             link: escapeHTML(urlRef.current.value),
-            file: fileRef.current.files[0]
+            file: fileRef.current.files[0],
         }
         props.onAddCard(newCard);
     };
@@ -64,8 +64,7 @@ function AddPlacePopup (props){
                 ref={urlRef}
             />
             <span className="url-error form-input-show-error"></span>
-
-            <label htmlFor="file-input" className="file-upload-label">Seleccionar Foto</label>
+            <label htmlFor="file-input" className="file-upload-label"> Seleccionar Archivo </label>
             <input 
                 type="file" 
                 id="file-input" 
