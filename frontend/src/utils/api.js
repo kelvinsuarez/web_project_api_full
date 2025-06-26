@@ -6,10 +6,8 @@ class Api{
         this._groupId = groupId
     }
 
-    async _useFetch(url, method, body, isFormData = false){
-        const headers = isFormData
-            ? {}
-            : {
+    async _useFetch(url, method, body){
+        const headers = {
            "content-type": "application/json"
         };
 
@@ -21,7 +19,7 @@ class Api{
         const res = await fetch(url, {
             method,
             headers,
-            body: isFormData ? body : body ? JSON.stringify(body) : undefined,
+            body: body ? JSON.stringify(body) : undefined,
         });
 
         if (res.ok){
@@ -69,13 +67,14 @@ class Api{
         }
     }
 
-    async addNewCardToServer(formData) {
+    async addNewCardToServer({name, link}) {
         try {
             const res = await this._useFetch(
                `${this._address}/cards`,
-               "POST",
-               formData,
-               true
+               "POST", {
+                    name: name,
+                    link: link,
+               }
             );
             return res;
         } catch(err) {

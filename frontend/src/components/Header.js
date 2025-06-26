@@ -11,7 +11,7 @@ function Header() {
   
   return (
     <header className="header">
-      <img className="header__logo" src={Logo} alt="logo around the U.S"/>
+      <img className="header__logo" src={Logo} alt="logo around the RD"/>
       <nav onClick={signOut} className="header__nav">cerrar sesión</nav>
       <hr className="header__line"/>
     </header>

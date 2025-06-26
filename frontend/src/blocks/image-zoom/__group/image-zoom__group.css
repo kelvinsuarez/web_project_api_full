@@ -18,3 +18,10 @@
   height: 550px;
   margin-left: 56px;
 }
+
+@media screen and (max-width: 568px) {
+    .image-zoom__group{
+        top: 200px;
+       
+    }
+}

@@ -62,7 +62,7 @@
     cursor: pointer;
 }
 
-.signup__link-register{
+.login__link-register{
     font-size: 14px;
     line-height: 16.94px;
     align-items: center;
@@ -75,4 +75,49 @@
 .login__link-register:hover{
     color: #787878;
     cursor: pointer;
+}
+
+@media screen and (max-width: 568px) { 
+    .login{
+        height: 1300px;        
+    }
+    .login__container{
+        margin-bottom: 50%;
+        margin-top: 10%;
+    }
+    .login__link-register{
+        text-align: center;
+        position: relative;
+        top: 3.5%;
+    }
+    .login__imput-text{
+        margin-top: 50%;
+       
+    }
+    .login__button-save{
+        margin-top: 110%;
+    }
+}
+
+@media screen and (max-width: 320px) { 
+    .login{
+        height: auto;        
+    }
+    .login__container{
+        margin-bottom: 50%;
+        margin-top: 10%;
+        width: 50%;
+    }
+    .login__link-register{
+        text-align: center;
+        position: relative;
+        top: 3.5%;
+    }
+    .login__imput-text{
+        margin-top: 20%;
+       
+    }
+    .login__button-save{
+        margin-top: 110%;
+    }
 }

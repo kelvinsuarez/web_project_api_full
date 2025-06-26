@@ -91,7 +91,7 @@ function Login ({handleLogin}) {
                         onChange={handleChange}
                     />
                     <button onClick={handleSubmit} className=" login__button-save">Inicia sesión</button>
-                    <NavLink to='/signup' className="signup__link-register">¿Aún no eres miembro? Regístrate aquí</NavLink>
+                    <NavLink to='/signup' className="login__link-register">¿Aún no eres miembro? Regístrate aquí</NavLink>
                 </form>
             </div>
             <InfoTooltip 

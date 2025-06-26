@@ -9,3 +9,20 @@
     left: 0%;
     bottom: 0%;
   }
+
+  @media screen and (max-width: 568px) {
+    .image-zoom__container{
+      width: 110%;
+      height: 120vh;
+      top: -80px;
+      margin-left: -40px;
+    }
+  }
+  @media screen and (max-width: 320px) {
+    .image-zoom__container{
+      width: 100%;
+      height: 60vh;
+      margin-left: -25px;
+      top: -100px;
+    }
+  }

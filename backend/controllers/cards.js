@@ -10,20 +10,16 @@ module.exports.getCards = (req, res, next) => {
 
 module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
-  const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
-
-  Cards.create({ name, link: link || null, imagePath, owner: req.user._id })
-    .then((card) => {
-      console.log('Carta creada:', card);
+  Cards.create({ name, link, owner: req.user._id })
+    .then((card) => {console.log('Carta creada:', card);
       res.status(HttpStatus.CREATED).send(card);
     })
     .catch((err) => {
-      const newError = err;
-      if (newError.name === 'ValidationError') {
-        newError.statusCode = HttpStatus.BAD_REQUEST;
-        next(newError);
+      if (err.name === 'ValidationError') {
+        err.statusCode = HttpStatus.BAD_REQUEST;
+        next(err);
       } else {
-        next(newError);
+        next(err);
       }
     });
 };

@@ -18,3 +18,17 @@
    color: rgba(255, 255, 255, 0.6);
     cursor: pointer;
   }
+
+  @media screen and (max-width: 568px) {
+    .image-zoom__icon-close{
+      top: -138px;
+      right: -5%
+    }
+  }
+
+  @media screen and (max-width: 320px) {
+    .image-zoom__icon-close{
+      top: -138px;
+      right: 3%;
+    }
+  }

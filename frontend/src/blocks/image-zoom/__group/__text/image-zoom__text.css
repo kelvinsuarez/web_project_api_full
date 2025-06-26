@@ -21,7 +21,8 @@
 @media screen and (max-width: 320px) {
     .image-zoom__text{
         font-size: 10px;
-        margin-top: 230%;
-        width: 30%;
+        margin-top: -50%;
+        width: 50%;
+        margin-left: -20%;
     }
 }

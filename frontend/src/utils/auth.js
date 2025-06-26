@@ -47,9 +47,9 @@ export const authorize = (email, password) => {
         }
         return  response.json()
     })
-    .then((data) => {
-        if (data.token) {
-            console.log("Token JWT recibido:", data.token);
+    .then((data) => {  
+        if (data.token) {  co
+          nsole.log("Token JWT recibido:", data.token);
             localStorage.setItem('jwt', data.token);
             console.log("Token almacenado en localStorage:", localStorage.getItem('jwt'))
             return data;

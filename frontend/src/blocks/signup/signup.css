@@ -76,3 +76,25 @@
     color: #787878;
     cursor: pointer;
 }
+
+@media screen and (max-width: 568px) { 
+    .signup{
+        height: 1300px;        
+    }
+    .signup__container{
+        margin-bottom: 50%;
+        margin-top: 10%;
+    }
+    .signup__link-register{
+        text-align: center;
+        position: relative;
+        top: 3.5%;
+    }
+    .signup__imput-text{
+        margin-top: 50%;
+       
+    }
+    .signup__button-save{
+        margin-top: 110%;
+    }
+}

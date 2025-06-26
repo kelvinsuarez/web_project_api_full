@@ -1,4 +1,4 @@
-const { Joi } = require('celebrate');
+const Joi = require('celebrate').Joi;
 const validator = require('validator');
 
 const validateURL = (value, helpers) => {
