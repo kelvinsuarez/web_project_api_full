@@ -40,7 +40,6 @@ const updateAvatarSchema = {
 const createCardSchema = {
   body: Joi.object({
     name: Joi.string().min(2).max(30).required(),
-    link: Joi.string().required().custom(validateURL),
   }),
 };
 

@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 require('dotenv').config();
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -35,6 +36,8 @@ app.use('/cards', auth, cardsRouter);
 
 //resgistrador de errores
 app.use(errorLogger);
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use((req, res) => {
   res.status(HttpStatus.NOT_FOUND).json({ message: HttpResponseMessage.NOT_FOUND });

@@ -5,6 +5,7 @@ const {
 } = require('../controllers/cards');
 const { celebrate } = require('celebrate');
 const { createCardSchema, cardIdSchema } = require('../validation/schemas');
+const upload = require('../middlewares/upload')
 
 // const auth = require('../middlewares/auth');
 // router.use(auth);
@@ -13,7 +14,7 @@ const { createCardSchema, cardIdSchema } = require('../validation/schemas');
 router.get('/', getCards);
 
 // Crear tarjetas
-router.post('/', celebrate(createCardSchema), createCard);
+router.post('/', upload.single('image'), celebrate(createCardSchema), createCard);
 
 // Borrar targetas
 router.delete('/:cardId', celebrate(cardIdSchema), deleteCard);

@@ -1,4 +1,6 @@
 const Cards = require('../models/card');
+const fs = require('fs');
+const path = require('path');
 const { HttpStatus, HttpResponseMessage } = require('../enums/http');
 
 module.exports.getCards = (req, res, next) => {
@@ -9,8 +11,19 @@ module.exports.getCards = (req, res, next) => {
 };
 
 module.exports.createCard = (req, res, next) => {
-  const { name, link } = req.body;
-  Cards.create({ name, link, owner: req.user._id })
+  console.log('Usuario autenticado:', req.user);
+
+  const { name } = req.body;
+  const owner = req.user._id;
+
+  if (!req.file) {
+    return res.status(HttpStatus.BAD_REQUEST).send({
+      message: 'Se requiere una imagen para crear la targeta.',
+    });
+  }
+  const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+
+  Cards.create({ name, link: imageUrl, owner })
     .then((card) => {console.log('Carta creada:', card);
       res.status(HttpStatus.CREATED).send(card);
     })
@@ -40,7 +53,18 @@ module.exports.deleteCard = (req, res, next) => {
       }
 
       return Cards.findByIdAndDelete(req.params.cardId)
-        .then(() => res.send({ message: 'Tarjeta eliminada' }));
+        .then((deleteCard) =>{
+          res.send({ message: 'Tarjeta eliminada'});
+
+          const filePath = path.join(__dirname, '..', 'uploads', path.basename(deleteCard.link));
+          fs.unlink(filePath, (err) => {
+            if (err) {
+              console.error('No se pudo eliminar la imagen del disco:', err.message);
+            } else {
+              console.log('Imagen eliminada del disco:', deleteCard.link);
+            }
+          });
+       });
     })
     .catch(next);
 };
