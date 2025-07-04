@@ -1,4 +1,4 @@
-const BASE_URL = "https://api.p18.ignorelist.com";
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 export const register = ({email, password}) => {
     return fetch(`${BASE_URL}/auth/signup`, {
@@ -48,8 +48,8 @@ export const authorize = (email, password) => {
         return  response.json()
     })
     .then((data) => {  
-        if (data.token) {  co
-          nsole.log("Token JWT recibido:", data.token);
+        if (data.token) {
+          console.log("Token JWT recibido:", data.token);
             localStorage.setItem('jwt', data.token);
             console.log("Token almacenado en localStorage:", localStorage.getItem('jwt'))
             return data;

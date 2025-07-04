@@ -1,4 +1,4 @@
-import React,{useRef, useEffect} from "react";
+import React,{useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import PopupWithForm from "./PopupWithForm";
 import FormValidator from "../utils/FormValidator";
@@ -6,8 +6,9 @@ import escapeHTML from "escape-html";
 
 function AddPlacePopup (props){
     const titleRef = useRef(null);
-    const urlRef = useRef(null);
+    const fileInputRef = useRef(null);
     const formRef =  useRef(null);
+    const [imagePreview, setImagePreview] = useState(null);
 
     useEffect(() => {
         const formValidator = new FormValidator({
@@ -20,13 +21,29 @@ function AddPlacePopup (props){
         formValidator.enableValidation();
     }, []);
 
+    const handleFileChange = () => {
+        const file = fileInputRef.current.files[0];
+        if (file) {
+            const previewURL = URL.createObjectURL(file);
+            setImagePreview(previewURL);
+        } else {
+            setImagePreview(null);
+        }
+    };
+
     const handleSubmit = (evt) => {
         evt.preventDefault()
-        const newCard = {
-            name: escapeHTML(titleRef.current.value),
-            link: escapeHTML(urlRef.current.value),
+        const file = fileInputRef.current.files[0];
+        if (!file) {
+            alert("Debes seleccionar una imagen.");
+            return;
         }
-        props.onAddCard(newCard);
+
+        const formData = new FormData();
+        formData.append("name", escapeHTML(titleRef.current.value));
+        formData.append("image", file);
+
+        props.onAddCard(formData);
     };
     return(
         <PopupWithForm 
@@ -51,17 +68,16 @@ function AddPlacePopup (props){
             <span className="titulo-error form-input-show-error"></span>
 
             <input 
-                type="url"
-                id="url"
-                placeholder="Imagen URL"
-                minLength="2" maxLength="200"
-                defaultValue=""
+                type="file"
+                id="archivo"
+                accept="image/*"
                 className="popup-place__imput-text popup-place__imput-text_image form-imput-text"
                 required
-                autoComplete="off" 
-                ref={urlRef}
+                ref={fileInputRef}
+                onChange={handleFileChange}
             />
-            <span className="url-error form-input-show-error"></span>
+            <span className="archivo-error form-input-show-error"></span>
+            {imagePreview && (<img src={imagePreview} alt="Preview" style={{width: "15%", marginTop: "1px", borderRadius: "4px" }}/>)}
             <button className="popup-save popup-place__button-save popup-place__button-save:hover" disabled>Guardar</button>
         </PopupWithForm>
     )

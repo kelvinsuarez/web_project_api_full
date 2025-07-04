@@ -2,13 +2,13 @@
     position: relative;
     position: fixed;
     display: flex;
-    justify-content: space-around;
     align-items: center;
     flex-direction: column;
-    top: 148px;
+    top: 18%;
     width: 36.4%;
-    height: 370px;
+    height: 70%;
     margin-left: 56px;
+    padding-bottom: 5%;
   }
   
   @media screen and (max-width: 768px) {

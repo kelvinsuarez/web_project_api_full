@@ -12,6 +12,7 @@
   
   .form__input-text_type_error{
     border-bottom: 1px solid #f50606;
+    margin-bottom: 2%;
 }
 
   @media screen and (max-width: 768px) {

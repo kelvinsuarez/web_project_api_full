@@ -29,6 +29,23 @@ class Api{
         return Promise.reject(`Error ${res.status}`)
     }
 
+    async _useFormDataFetch(url, method, formData) {
+        const headers = {};
+        const token = localStorage.getItem("jwt");
+        if (token) {
+            headers["Authorization"] = `Bearer ${token}`;
+        }
+        
+        const res = await fetch(url, {
+            method,
+            headers,
+            body: formData,
+        });
+
+        if (res.ok) return res.json();
+        return Promise.reject(`Error ${res.status}`);
+    }
+
     async getUserInfoFronServer() {
         try{
             const res = await this._useFetch(`${this._address}/users/me`,
@@ -67,14 +84,12 @@ class Api{
         }
     }
 
-    async addNewCardToServer({name, link}) {
+    async addNewCardToServer(formData) {
         try {
-            const res = await this._useFetch(
+            const res = await this._useFormDataFetch(
                `${this._address}/cards`,
-               "POST", {
-                    name: name,
-                    link: link,
-               }
+               "POST", 
+               formData
             );
             return res;
         } catch(err) {
@@ -140,7 +155,7 @@ class Api{
 }
 
 const api = new Api({
-    address: 'https://api.p18.ignorelist.com',
+    address: process.env.REACT_APP_API_URL || 'http://localhost:3000',
     token: localStorage.getItem('jwt') || process.env.TOKEN || '',
 });
 

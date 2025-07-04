@@ -55,7 +55,12 @@ export default class FormValidator {
     }
   
     _hasInvalidInput() {
-      return this._inputList.some((inputElement) => !inputElement.validity.valid);
+      return this._inputList.some((inputElement) => {
+        if (inputElement.type === "file") {
+          return !inputElement.files || inputElement.files.length === 0;
+        }
+        return !inputElement.validity.valid;
+      });
     }
   
     _disableButton() {
