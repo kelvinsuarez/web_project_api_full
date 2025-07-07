@@ -4,13 +4,13 @@ const validator = require('validator');
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    default: 'Jacques Cousteau',
+    default: 'Nuevo Usuario',
     minlength: 2,
     maxlength: 30,
   },
   about: {
     type: String,
-    default: 'Explorador',
+    default: 'Explorador en RD',
     minlength: 2,
     maxlength: 30,
   },
