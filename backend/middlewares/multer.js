@@ -3,11 +3,15 @@ const path = require('path');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, 'uploads'));
+    const isAvatar = file.fieldname === 'avatar';
+    const targetFolder = isAvatar ? 'uploads/avatar' : 'uploads';
+    cb(null, path.join(__dirname, targetFolder));
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    cb(null, `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`);
+    const ext = path.extname(file.originalname).toLowerCase();
+    const name = `${file.fieldname}-${uniqueSuffix}${ext}`;
+    cb(null, name);
   },
 });
 

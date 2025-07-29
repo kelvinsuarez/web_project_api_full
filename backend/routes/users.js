@@ -3,8 +3,9 @@ const express = require('express');
 const router = express.Router();
 //const auth = require('../middlewares/auth');
 const { celebrate } = require('celebrate');
+const upload = require('../middlewares/upload');
 const {
-  getUsers, getUserById, updateUserProfile, updateUserAvatar, getCurrentUser,
+  getUsers, getUserById, updateUserProfile, uploadUserAvatar, updateUserAvatar, getCurrentUser,
 } = require('../controllers/users');
 const { updateProfileSchema, updateAvatarSchema } = require('../validation/schemas');
 
@@ -23,5 +24,7 @@ router.get('/', getUsers);
 router.patch('/me', celebrate(updateProfileSchema), updateUserProfile);
 //Actualizar avatar
 router.patch('/me/avatar', celebrate(updateAvatarSchema), updateUserAvatar);
+
+router.post('/me/avatar', upload.single('avatar'), uploadUserAvatar)
 
 module.exports = router;

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const isValidURL = require('../utils/isValidURL');
+const { valid } = require('joi');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -18,10 +20,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: 'https://practicum-content.s3.us-west-1.amazonaws.com/resources/moved_avatar_1604080799.jpg',
     validate: {
-      validator(v) {
-        const urlRegex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)?$/;
-        return urlRegex.test(v);
-      },
+      validator: isValidURL,
       message: (props) => `${props.value} no es una URL válida!`,
     },
   },
