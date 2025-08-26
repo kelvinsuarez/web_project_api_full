@@ -41,7 +41,7 @@ ImagePopup.propTypes = {
   card: PropTypes.shape({
     link: PropTypes.string,
     name: PropTypes.string
-  }).isRequired,
+  }),
   onClose: PropTypes.func.isRequired
 };
 

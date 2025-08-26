@@ -181,11 +181,12 @@ function App() {
 
                     <Footer/>
 
-                    <ImagePopup
-                      isOpen={isOpenImagePopup}
-                      card={selectedCard}
-                      onClose={closeAllPopups}
-                    />
+                    { selectedCard && (<ImagePopup
+                        isOpen={isOpenImagePopup}
+                        card={selectedCard}
+                        onClose={closeAllPopups}
+                      />
+                    )}
 
                     <ConfirmationDeletePopup
                       isOpen={isConfirmacionPopupOpen}

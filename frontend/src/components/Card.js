@@ -76,7 +76,7 @@ Card.propTypes = {
         likes: PropTypes.array.isRequired, 
         owner: PropTypes.shape({ 
             _id: PropTypes.string.isRequired, 
-        }).isRequired, 
+        }), 
     }).isRequired, 
     onCardLike: PropTypes.func.isRequired, 
     onConfirmationDelete: PropTypes.func.isRequired, 

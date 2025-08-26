@@ -19,7 +19,17 @@ function EditAvatarPopup (prosp){
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        prosp.onUpdateAvatar(AvatarRef.current.value)
+
+        const file = AvatarRef.current.files?.[0];
+        console.log("Archivo seleccionado:", file);
+        if (!file) {
+            console.error("No se ha seleccionado ningún archivo.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("avatar", file);
+        prosp.onUpdateAvatar(formData);
     }
     return(
         <PopupWithForm 
@@ -32,14 +42,14 @@ function EditAvatarPopup (prosp){
             onSubmit={handleSubmit}
         >
             <input 
-                type="url"
+                type="file"
                 id="url-profile"
-                placeholder="Imagen URL"
-                minLength="2" maxLength="200"
-                defaultValue=""
+                accept="image/*"
                 className="popup-image-profile__imput-text form-imput-text"
                 required
-                autoComplete="off"
+                onChange={()=> {
+                    console.log("Archivo detectado", AvatarRef.current?.files?.[0]);
+                }}
                 ref={AvatarRef}
             />
             <span className="url-profile-error form-input-show-error"></span>

@@ -10,12 +10,14 @@ function ConfirmationDeletePopup (props){
     return(
         <PopupWithForm 
             isOpen={props.isOpen} 
-            onClose={props.onClose} 
+            onClose={props.onClose}
+            onSubmit={handleSubmit}
             name="-confirmation" 
             id="" 
             title="¿Estas seguro/a?"
+            
         >
-            <button className="popup-confirmation__button-delete" onClick={handleSubmit}>si</button>
+        <button type="submit" className="popup-confirmation__button-delete">si</button>
         </PopupWithForm>
     )
 }

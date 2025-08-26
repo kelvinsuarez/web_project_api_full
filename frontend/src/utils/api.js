@@ -136,26 +136,24 @@ class Api{
         }
     }
 
-    async updateImageProfile(avatarUrl) {
+    async updateImageProfile(formData) {
         try {
-            const res = await this._useFetch(
+            const res = await this._useFormDataFetch(
                 `${this._address}/users/me/avatar`,
-                "PATCH",
-                {
-                    avatar: avatarUrl,
-                }
+                "POST",
+                formData
             );
 
             return res.data ? res.data : res;
         } catch (err) {
-            console.log(err);
+            console.log("error al actualizar la imagen de perfil:", err);
         }
     }
 
 }
 
 const api = new Api({
-    address: 'https://api.p18.ignorelist.com',
+    address: "http://localhost:3000",
     token: localStorage.getItem('jwt') || process.env.TOKEN || '',
 });
 

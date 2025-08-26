@@ -13,7 +13,8 @@ export default class FormValidator {
   
     enableValidation() {
       this._inputList.forEach((inputElement) => {
-        inputElement.addEventListener("input", () => {
+        const eventType = inputElement.type === "file" ? "change" : "input";
+        inputElement.addEventListener(eventType, () => {
           this._isValid(inputElement);
           this._toggleButtonState();
         });
@@ -27,10 +28,18 @@ export default class FormValidator {
   
     _isValid(inputElement) {
       const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
-      if (!inputElement.validity.valid) {
-        this._showInputError(inputElement, errorElement, inputElement.validationMessage);
+      if (inputElement.type === "file") {
+        if (!inputElement.files || inputElement.files.length === 0) {
+          this._showInputError(inputElement, errorElement, "Debe seleccionar un archivo");
+        } else {
+          this._hideInputError(inputElement, errorElement);
+        }
       } else {
-        this._hideInputError(inputElement, errorElement);
+        if (!inputElement.validity.valid) {
+          this._showInputError(inputElement, errorElement, inputElement.validationMessage);
+        } else {
+          this._hideInputError(inputElement, errorElement);
+        }
       }
     }
   

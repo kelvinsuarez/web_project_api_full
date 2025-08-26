@@ -24,6 +24,7 @@ module.exports.createCard = (req, res, next) => {
   const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
 
   Cards.create({ name, link: imageUrl, owner })
+    .then(card => card.populate(`owner`))
     .then((card) => {console.log('Carta creada:', card);
       res.status(HttpStatus.CREATED).send(card);
     })

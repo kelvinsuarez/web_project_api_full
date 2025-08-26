@@ -22,7 +22,7 @@ function Main({ onEditProfileClick,
                         <div className="profile__image-edit">
                             <img className="profile__edit-image-button-vector" src={VectorLapiz} onClick={onEditAvatarClick} alt="Edit Avatar"/>
                         </div>
-                        <img className="profile__image"  style={{ backgroundImage: `url(${currentUser.avatar})` }}/>
+                        <img className="profile__image"  src={`${currentUser.avatar}?${Date.now()}`} alt='Avatar'/>
                     </div>
                 </div>
                 <div className="profile__into">
@@ -69,7 +69,7 @@ Main.propTypes = {
         likes: PropTypes.array.isRequired, 
         owner: PropTypes.shape({ 
             _id: PropTypes.string.isRequired, 
-        }).isRequired, 
+        }), 
     })).isRequired, 
     onConfirmationDelete: PropTypes.func.isRequired, 
 };
