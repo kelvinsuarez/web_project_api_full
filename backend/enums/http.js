@@ -6,6 +6,7 @@ const HttpStatus = Object.freeze({
   FORBIDDEN: 403,
   NOT_FOUND: 404,
   INTERNAL_SERVER_ERROR: 500,
+  CONFLICT: 409,
 });
 
 const HttpResponseMessage = Object.freeze({
@@ -16,6 +17,7 @@ const HttpResponseMessage = Object.freeze({
   FORBIDDEN: 'Acceso prohibido',
   NOT_FOUND: 'Recurso no encontrado',
   SERVER_ERROR: 'Error predeterminado',
+  CONFLICT: 'Conflicto de datos',
 });
 
 module.exports = {
