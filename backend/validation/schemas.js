@@ -11,6 +11,9 @@ const validateURL = (value, helpers) => {
 // Esquemas de validación para users
 const signupSchema = {
   body: Joi.object({
+    name: Joi.string().min(2).max(30).required(),
+    about: Joi.string().min(2).max(30).required(),
+    avatar: Joi.string().custom(validateURL),
     email: Joi.string().required().email(),
     password: Joi.string().required().min(6),
   }),
