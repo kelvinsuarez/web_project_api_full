@@ -15,7 +15,7 @@ module.exports.createUser = async (req, res, next) => {
     if (existingUser) {
       const error = new Error('El email ya está registrado');
       error.statusCode = HttpStatus.CONFLICT;
-      throw error;
+      return next(error);
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -44,14 +44,14 @@ module.exports.login = async (req, res, next) => {
     if (!user) {
       const error = new Error(HttpResponseMessage.UNAUTHORIZED);
       error.statusCode = HttpStatus.UNAUTHORIZED;
-      throw error;
+      return next(error);
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       const error = new Error(HttpResponseMessage.UNAUTHORIZED);
       error.statusCode = HttpStatus.UNAUTHORIZED;
-      throw error;
+      return next(error);
     }
 
     const token = jwt.sign(
