@@ -11,13 +11,9 @@ export const register = ({email, password}) => {
     })
     .then((res) => {
         if (!res.ok) {
-            if (res.status === 500) {
-                return Promise.reject("Este usuario ya está registrado.");
-            } else if (res.status === 400) {
-                return Promise.reject("Uno de los campos se rellenó de forma incorrecta.")
-            } else {
-                return Promise.reject(`Error: ${res.statusText}`)
-            }
+            return res.json().then(err => {
+                return Promise.reject(err.message || `Error: ${res.statusText}`);
+            });
         }
         return res.json()
     })

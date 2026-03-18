@@ -31,13 +31,14 @@ function Register () {
         })
         .catch((err) => {
             console.log(err);
-            if(err.includes('usuario ya está registrado')) {
-                setError('Este usuario ya está registrado. Por favor, intenta con otro correo.');
-            } else if (err.includes('400')) {
-                setError('Uno de los campos se rellenó de forma incorrecta.');    
-            } else {
-                setError('Ha ocurrido un error. Por favor, inténtalo de nuevo.');
+            let message = err; 
+            if (typeof err === 'string' && err.includes ('registrado')) {
+                message = 'Este usuario ya está registrado. Por favor, intenta con otro correo.';
+            } else if (typeof err === 'string' && err.includes('campos')) {
+                message = 'Uno de los campos se rellenó de forma incorrecta.';    
             }
+
+            setError(message || 'Ha ocurrido un error. Por favor, inténtalo de nuevo.');
             setIsError(true);
             setIstooltipOpen(true);
          }); 
