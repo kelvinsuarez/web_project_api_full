@@ -43,7 +43,7 @@ app.use((req, res) => {
   res.status(HttpStatus.NOT_FOUND).json({ message: HttpResponseMessage.NOT_FOUND });
 });
 
-app.use(errors());
+//app.use(errors());
 app.use(errorHandler);
 
 //Inicializar el servidor
